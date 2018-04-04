@@ -1,0 +1,169 @@
+/* JOIN TABLES */
+
+
+/* SELECT * 
+FROM Invoice i 
+JOIN InvoiceLine il ON il.invoiceId = i.invoiceId 
+WHERE il.UnitPrice > 0.99 ; */
+
+/* SELECT i.InvoiceDate, c.FirstName, c.LastName, i.Total 
+FROM Invoice i
+JOIN Customer c ON i.CustomerId = c.CustomerId; */
+
+/* SELECT c.FirstName, c.LastName, e.FirstName, e.LastName
+FROM Customer c
+JOIN Employee e ON c.SupportRepId = e.EmployeeId; */
+
+/* SELECT a.Title, ar.Name 
+FROM Album a
+JOIN Artist ar ON a.ArtistId = ar.ArtistId */
+
+/* SELECT pt.TrackId 
+FROM PlaylistTrack pt
+JOIN Playlist p ON p.PlaylistId = pt.PlaylistId
+WHERE p.Name = 'Music'; */
+
+/* SELECT t.Name FROM Track t
+JOIN PlaylistTrack pt ON t.TrackId = pt.TrackId
+WHERE pt.PlaylistId = 5; */
+
+/* SELECT t.Name, p.name 
+FROM Track t 
+JOIN PlayListTrack pt ON t.TrackId = pt.TrackId
+JOIN PlayList p ON pt.PlaylistId = p.PlaylistId; */
+
+/* SELECT t.Name, Al.Title 
+FROM Track t
+JOIN Album Al ON Al.albumId = t.albumId
+JOIN Genre g ON t.GenreId = g.GenreId
+WHERE g.name = "Alternative" */
+
+
+/* NESTED QUERIES */
+
+
+/* SELECT * FROM Invoice WHERE InvoiceId IN
+(SELECT InvoiceId FROM InvoiceLine WHERE UnitPrice > 0.99);  */
+
+/* SELECT * FROM PlaylistTrack WHERE PlaylistId 
+IN (SELECT PlaylistID FROM Playlist WHERE Name = 'Music') */
+
+/* SELECT * FROM Track 
+WHERE TrackID IN (SELECT TrackId FROM PlaylistTrack WHERE PlaylistId = 5); */
+
+/* SELECT * FROM Track
+WHERE GenreId IN (SELECT GenreId FROM Genre WHERE name = 'Comedy'); */
+
+/* SELECT * FROM Track
+WHERE AlbumId IN (SELECT AlbumId FROM Album WHERE title = 'Fireball'); */
+
+/* SELECT * FROM Track
+WHERE AlbumId IN (SELECT AlbumId FROM Album WHERE ArtistId IN
+                 (SELECT ArtistId FROM Artist WHERE Name = "Queen")); */
+                 
+
+/* UPDATING ROWS */
+
+
+/* UPDATE Customer SET Fax = NULL 
+WHERE Fax is NOT NULL; */
+
+/* UPDATE Customer SET Company = "Self" 
+WHERE Company IS NULL; */
+
+/* UPDATE Customer SET LastName = "Thompson"
+WHERE LastName IS 'Barnett'; */
+
+/* UPDATE Customer SET SupportRepId = 4 
+WHERE Email IS 'luisrojas@yahoo.cl'; */
+
+/* UPDATE Track SET Composer = 'The darkness around us' 
+WHERE GenreId IN (SELECT GenreId FROM Genre WHERE Name = 'Metal')
+AND Composer IS NULL; */
+
+
+/* DISTINCT */
+
+
+/* SELECT DISTINCT Composer FROM Track; */
+
+/* SELECT DISTINCT BillingPostalCode FROM Invoice; */
+
+/* SELECT DISTINCT Company FROM Customer; */
+
+
+/* DELETE */
+
+
+/* DELETE FROM practice_delete WHERE type = 'bronze'; */
+
+/* DELETE FROM practice_delete WHERE type = 'silver'; */
+
+/* DELETE FROM practice_delete WHERE value = 150; */
+
+
+
+/* eCommerce */
+
+
+/* CREATE TABLE Orders (
+	OrderId INTEGER PRIMARY KEY AUTOINCREMENT,
+  	UserId INTEGER, FOREIGN KEY(UserId) REFERENCES Users(UserId)
+) */
+
+/* CREATE TABLE Users(
+	UserId INTEGER PRIMARY KEY AUTOINCREMENT,
+  	Name varchar(30),
+  	Email TEXT
+) */
+
+/* CREATE TABLE Product(
+	ProductId INTEGER PRIMARY KEY AUTOINCREMENT,
+  	Name varchar(30),
+  	Price INTEGER
+) */
+
+/* CREATE TABLE Orders(
+	OrderId INTEGER PRIMARY KEY AUTOINCREMENT,
+  	ProductId INTEGER FOREIGN KEY (ProductId) REFERENCES Product(ProductId)
+) */
+
+/* INSERT INTO Users (Name, Price)
+VALUES 
+('Will', 'will@gmail.com'),
+('Hyun', 'hyun@gmail.com'),
+('Woo', 'woo@gmail.com');
+
+INSERT INTO Users (Name, Price)
+VALUES 
+('Iphone 6s', 399.99),
+('MacBook Pro', 1399.99),
+('Herschel Wallet', 15.99); */
+
+/* INSERT INTO Orders (UserId)
+VALUES 
+(2),
+(1),
+(3) */
+
+/* ALTER TABLE Orders ADD COLUMN ProductId INTEGER REFERENCES Product(ProductId); */
+
+/* INSERT INTO Orders (ProductId)
+VALUES
+(2),
+(1),
+(1) */
+
+/* UPDATE Orders SET ProductId= 2 WHERE OrderId =3; */
+
+/* SELECT * FROM Orders WHERE OrderId = 1; */
+/* SELECT * FROM Orders; */
+
+/* SELECT SUM(p.Price)
+FROM Orders o 
+JOIN Product p ON p.ProductId = o.ProductId; */
+
+/* SELECT * FROM Orders 
+WHERE UserId = 1; */
+
+/* SELECT DISTINCT UserId FROM Orders; */
